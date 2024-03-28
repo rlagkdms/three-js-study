@@ -49,7 +49,7 @@ class App {
         this._scene.add(light);
     }
     _setupModel() {
-        const geometry = new THREE.PlaneGeometry(2, 0.5, 10, 2) //평면 사각형 너비길이(1), 높이길이(1), 너비 방향 분할 수(1), 높이 방향 분할 수(1) -> 지형 표현에 사용
+        const geometry = new THREE.TorusGeometry(0.9,0.3, 9,32,Math.PI) //3차원 반지모양 토러스 반지름(1), 토러스 원통의 반지름 값(0.4), 토러스방사방향분할수(8),토러스에 대한 긴 원통의 분할 수(6),토러스 연장각 길이(2pi)
         // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
         const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
         const cube = new THREE.Mesh(geometry, fillMaterial);
