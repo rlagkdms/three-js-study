@@ -49,7 +49,7 @@ class App {
         this._scene.add(light);
     }
     _setupModel() {
-        const geometry = new THREE.TorusGeometry(0.9,0.3, 9,32,Math.PI) //3차원 반지모양 토러스 반지름(1), 토러스 원통의 반지름 값(0.4), 토러스방사방향분할수(8),토러스에 대한 긴 원통의 분할 수(6),토러스 연장각 길이(2pi)
+        const geometry = new THREE.TorusKnotGeometry(0.6, 0.1,64, 32, 3,4) //반지름, 토러스구성원통 반지름 크기, 분할 수, 분할 수, 토러스구성 반복 횟수, 반복 횟수
         // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
         const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
         const cube = new THREE.Mesh(geometry, fillMaterial);
