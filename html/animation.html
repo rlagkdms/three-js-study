@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+            padding: 0; 
+        }
+        canvas{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script type="module">
+        let mesh; 
+         // AnimationMixer 만들기, AnimationClip 인스턴스 리스트 가져오기
+         const mixer = new THREE.AnimationMixer( mesh );
+        const clips = mesh.animations;
+
+        // 각 프레임의 mixer 업데이트
+        function update () {
+            mixer.update( deltaSeconds );
+        }
+
+        // 특정 애니메이션 재생
+        const clip = THREE.AnimationClip.findByName( clips, 'dance' );
+        const action = mixer.clipAction( clip );
+        action.play();
+
+        // 전체 애니메이션 재생
+        clips.forEach( function ( clip ) {
+            mixer.clipAction( clip ).play();
+        } );
+    </script>
+</body>
+</html>

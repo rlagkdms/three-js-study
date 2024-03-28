@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellow Sphere with Shadow</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script type="module" >
+        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+
+
+        // Scene 생성
+        const scene = new THREE.Scene();
+
+        // Camera 생성
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        // Renderer 생성
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // HemisphereLight 생성 (전체적인 조명)
+        const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 0.6);
+        scene.add(hemisphereLight);
+
+        // DirectionalLight 생성 (그림자를 생성하기 위한 빛)
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        directionalLight.position.set(10, 10, 10);
+        scene.add(directionalLight);
+
+        // Geometry 생성 (구체)
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+
+        // Material 생성 (노란색)
+        const material = new THREE.MeshPhongMaterial({ color: 0xffff00 });
+
+        // Mesh 생성 (Geometry와 Material 결합)
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.castShadow = true; // 그림자 생성 설정
+
+        // Scene에 Mesh 추가
+        scene.add(sphere);
+
+        // PlaneGeometry 생성 (바닥면)
+        const planeGeometry = new THREE.PlaneGeometry(10, 10);
+        const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.5 }); // 그림자 투명도 설정
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.receiveShadow = true; // 그림자를 받는 설정
+        plane.rotation.x = -Math.PI / 2; // 바닥면을 수평으로 설정
+        scene.add(plane);
+
+        // 렌더링 함수 정의
+        function animate() {
+            requestAnimationFrame(animate);
+            sphere.rotation.x += 0.01; // X축 회전 애니메이션
+            sphere.rotation.y += 0.01; // Y축 회전 애니메이션
+            renderer.render(scene, camera); // Scene을 Camera로 렌더링
+        }
+
+        // animate 함수 호출
+        animate();
+    </script>
+</body>
+</html>

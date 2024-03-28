@@ -1,0 +1,74 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/first.js"></script>
+    <style>
+        body{margin: 0; padding: 0;}
+        canvas{display: block;}
+    </style>
+</head>
+<body>
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { display: block; }
+		</style>
+	</head>
+	<body>
+		<script type="module">
+			// import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+            import * as THREE from 'three';
+            // import WebGL from 'three/addons/capabilities/WebGL.js';
+            //WebGL 호환성 검사하기 
+            // if ( WebGL.isWebGLAvailable() ) {
+
+            //     // Initiate function or other initializations here
+            //     animate();
+
+            // } else {
+
+            //     const warning = WebGL.getWebGLErrorMessage();
+            //     document.getElementById( 'container' ).appendChild( warning );
+
+            // }
+
+			// Our Javascript will go here.
+            const scene = new THREE.Scene();
+                                                    //시야각(해당시점의 화면이 보여지는 정도)/종횡비 /near과 far절단면
+            const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); //렌더링할 구역의 크기를 설정 성능 개선을 중시할 경우, 화면크기/2 
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );//크기는 유지하되, 더 낮은 해상도로 렌더링하고싶으면 세번째인자값을 false로 넣기 
+            document.body.appendChild( renderer.domElement );
+
+            const geometry = new THREE.BoxGeometry( 1, 1, 1 ); //큐브를 만들 때 사용
+            const material = new THREE.MeshBasicMaterial( { color: 0xffffff } ); //색칠 때 사용 
+            const cube = new THREE.Mesh( geometry, material ); //재질 적용 
+            scene.add( cube );
+
+            camera.position.z = 5; 
+            
+            function animate() {
+                requestAnimationFrame( animate );
+                cube.rotation.x += 0.01; //돌아가게만듬요~
+                cube.rotation.y -= 0.01;
+                renderer.render( scene, camera );
+            }
+            animate();
+
+       
+                
+		</script>
+	</body>
+</html>
