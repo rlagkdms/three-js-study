@@ -49,7 +49,7 @@ class App {
         this._scene.add(light);
     }
     _setupModel() {
-        const geometry = new THREE.RingGeometry(0.3, 0.8, 8, 0, Math.PI)//2차원 반지모양 내부 반지름값(0.5), 외부반지름값(1), 가장자리 둘레방향 분할 수(8), 내부 방향 분할 수(1), 시작각(0), 연장각(2pi)
+        const geometry = new THREE.PlaneGeometry(2, 0.5, 10, 2) //평면 사각형 너비길이(1), 높이길이(1), 너비 방향 분할 수(1), 높이 방향 분할 수(1) -> 지형 표현에 사용
         // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
         const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
         const cube = new THREE.Mesh(geometry, fillMaterial);
