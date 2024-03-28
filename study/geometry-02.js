@@ -49,7 +49,7 @@ class App {
         this._scene.add(light);
     }
     _setupModel() {
-        const geometry = new THREE.CylinderGeometry(2,3,2,32,10, true, 0, Math.PI)//원통 윗면반지름크기(1), 밑면반지름크기(1),원통 높이(1), 원통의 둘레 방향에 대한 분할 개수 (8), 원통높이방향분할개수(1), 윗/밑면 개방 여부(false) 원뿔 시작각(0) , 원뿔연장각(2pi)
+        const geometry = new THREE.SphereGeometry(0.5, 32, 12, 0, Math.PI, 0, Math.PI) //구 구의 반지름 크기 (1), 수평 방향에 대한 분할수(32), 수직 방향에 대한 분할수 (16), 수평 방향에 대한 구의 시작각(0), 수평방향대한 구의 연장각(2pi), 수직방향대한 구의 시작각(0), 수직방향대한 구의 연장각(pi)
         // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
         const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
         const cube = new THREE.Mesh(geometry, fillMaterial);
