@@ -48,24 +48,43 @@ class App {
         light.position.set(-1, 2, 4);
         this._scene.add(light);
     }
-    _setupModel() {
-        const geometry = new THREE.TorusKnotGeometry(0.6, 0.1,64, 32, 3,4) //반지름, 토러스구성원통 반지름 크기, 분할 수, 분할 수, 토러스구성 반복 횟수, 반복 횟수
-        // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
-        const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
-        const cube = new THREE.Mesh(geometry, fillMaterial);
+    // _setupModel() {
+    //     const geometry = new THREE.TorusKnotGeometry(0.6, 0.1,64, 32, 3,4) //반지름, 토러스구성원통 반지름 크기, 분할 수, 분할 수, 토러스구성 반복 횟수, 반복 횟수
+    //     // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
+    //     const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
+    //     const cube = new THREE.Mesh(geometry, fillMaterial);
         
-        // const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-        const lineMaterial = new THREE.LineBasicMaterial({color: 0xfffff});
-        const line = new THREE.LineSegments(
-            new THREE.WireframeGeometry(geometry), lineMaterial); //와이어프레임 형태로 지오메트리 표현하려고 사용 
+    //     // const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+    //     const lineMaterial = new THREE.LineBasicMaterial({color: 0xfffff});
+    //     const line = new THREE.LineSegments(
+    //         new THREE.WireframeGeometry(geometry), lineMaterial); //와이어프레임 형태로 지오메트리 표현하려고 사용 
 
-        const group = new THREE.Group(); 
-        group.add(cube);
-        group.add(line);
+    //     const group = new THREE.Group(); 
+    //     group.add(cube);
+    //     group.add(line);
         
-        this._scene.add(group);
-        this._cube = group; //필드정의
+    //     this._scene.add(group);
+    //     this._cube = group; //필드정의
+    // }
+
+    _setupModel(){
+        const shape = new THREE.Shape();
+        shape.moveTo(1,1); //오른쪽 상단 꼭짓점으로 이동 
+        shape.lineTo(1,-1); //오른쪽 선 그리기 
+        shape.lineTo(-1,-1); // 아래쪽 선 그리기 
+        shape.lineTo(-1,1);// 왼쪽 선 그리기 
+        shape.closePath(); // 도형 닫기 
+
+        const geometry = new THREE.BufferGeometry();
+        const points = shape.getPoints(); 
+        geometry.setFromPoints(points);
+
+        const material = new THREE.LineBasicMaterial({color: 0xffff00});
+        const line = new THREE.Line(geometry, material);
+
+        WebTransportDatagramDuplexStream,this._scene.add(line);
     }
+
     resize() {
         const width = this._divContainer.clientWidth;
         const height = this._divContainer.clientHeight;
