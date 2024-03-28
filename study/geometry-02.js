@@ -49,7 +49,7 @@ class App {
         this._scene.add(light);
     }
     _setupModel() {
-        const geometry = new THREE.SphereGeometry(0.5, 32, 12, 0, Math.PI, 0, Math.PI) //구 구의 반지름 크기 (1), 수평 방향에 대한 분할수(32), 수직 방향에 대한 분할수 (16), 수평 방향에 대한 구의 시작각(0), 수평방향대한 구의 연장각(2pi), 수직방향대한 구의 시작각(0), 수직방향대한 구의 연장각(pi)
+        const geometry = new THREE.RingGeometry(0.3, 0.8, 8, 0, Math.PI)//2차원 반지모양 내부 반지름값(0.5), 외부반지름값(1), 가장자리 둘레방향 분할 수(8), 내부 방향 분할 수(1), 시작각(0), 연장각(2pi)
         // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
         const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
         const cube = new THREE.Mesh(geometry, fillMaterial);
