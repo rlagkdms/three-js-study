@@ -49,7 +49,7 @@ class App {
         this._scene.add(light);
     }
     _setupModel() {
-        const geometry = new THREE.BoxGeometry(1,1,1);//가로, 세로, 깊이 
+        const geometry = new THREE.CircleGeometry(0.9, 12, 0, Math.PI/2 ); // 원판 : 원판 크기 반지름(기본 1) ,원판 구성 분할 (세그먼트) 수(기본 8) , 시작 각도(단위 radian, 기본 0), 연장 각도(단위 radian, 기본 2pi(360도))
         // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
         const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
         const cube = new THREE.Mesh(geometry, fillMaterial);
