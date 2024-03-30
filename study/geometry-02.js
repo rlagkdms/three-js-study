@@ -38,7 +38,7 @@ class App {
         const camera = new THREE.PerspectiveCamera(
             75, width/height, 0.1, 100
         );
-        camera.position.z = 15; 
+        camera.position.z = 15; // 카메라 시점을 더 멀리 두기 
         this._camera = camera; //field 객체 
     }
     _setupLight() {
