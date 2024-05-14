@@ -48,37 +48,62 @@ class App {
         light.position.set(-1, 2, 4);
         this._scene.add(light);
     }
-    _setupModel() {
-        // const geometry = new THREE.TorusKnotGeometry(0.6, 0.1,64, 32, 3,4) //반지름, 토러스구성원통 반지름 크기, 분할 수, 분할 수, 토러스구성 반복 횟수, 반복 횟수
-        // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
+    // _setupModel() {
+    //     // const geometry = new THREE.TorusKnotGeometry(0.6, 0.1,64, 32, 3,4) //반지름, 토러스구성원통 반지름 크기, 분할 수, 분할 수, 토러스구성 반복 횟수, 반복 횟수
+    //     // const geometry = new THREE.SphereGeometry(1, 64, 32); //원 
 
-        const shape = new THREE.Shape();
+    //     const shape = new THREE.Shape();
 
-        const x = -2.5, y = -5;
-        shape.moveTo(x + 2.5, y + 2.5);
-        shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
-        shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5 , x - 3, y + 3.5);
-        shape.bezierCurveTo(x - 3, y+ 5.5, x - 1.5, y + 7.7 , x + 2.5, y + 9.5);
-        shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5 , x + 8, y + 3.5);
-        shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
-        shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5 , x + 2.5, y + 2.5);
+    //     const x = -2.5, y = -5;
+    //     shape.moveTo(x + 2.5, y + 2.5);
+    //     shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
+    //     shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5 , x - 3, y + 3.5);
+    //     shape.bezierCurveTo(x - 3, y+ 5.5, x - 1.5, y + 7.7 , x + 2.5, y + 9.5);
+    //     shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5 , x + 8, y + 3.5);
+    //     shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
+    //     shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5 , x + 2.5, y + 2.5);
             
-        const geometry = new THREE.ShapeGeometry(shape);
+    //     const geometry = new THREE.ShapeGeometry(shape);
         
-        const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
-        const cube = new THREE.Mesh(geometry, fillMaterial);
+    //     const fillMaterial = new THREE.MeshPhongMaterial({color : 0xff0000}) //파란개열 재질 
+    //     const cube = new THREE.Mesh(geometry, fillMaterial);
         
-        // const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-        const lineMaterial = new THREE.LineBasicMaterial({color: 0xfffff});
-        const line = new THREE.LineSegments(
-            new THREE.WireframeGeometry(geometry), lineMaterial); //와이어프레임 형태로 지오메트리 표현하려고 사용 
+    //     // const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+    //     const lineMaterial = new THREE.LineBasicMaterial({color: 0xfffff});
+    //     const line = new THREE.LineSegments(
+    //         new THREE.WireframeGeometry(geometry), lineMaterial); //와이어프레임 형태로 지오메트리 표현하려고 사용 
 
-        const group = new THREE.Group(); 
-        group.add(cube);
-        group.add(line);
+    //     const group = new THREE.Group(); 
+    //     group.add(cube);
+    //     group.add(line);
         
-        this._scene.add(group);
-        this._cube = group; //필드정의
+    //     this._scene.add(group);
+    //     this._cube = group; //필드정의
+    // }
+    _setupModel(){
+        class CustomSincurve extends THREE.Curve{
+            constructor(scale){
+                super(); 
+                this.scale = scale;
+            }
+            getPoint(t){
+                const tx = t * 3 - 1.5; 
+                const ty = Math.sin(2 * Math.PI * t);
+                const tz = 0; 
+                return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+            }
+        }
+        const path = new CustomSincurve(4);
+
+        const geometry = new THREE.BufferGeometry();
+        const points = path.getPoints(); 
+        geometry.setFromPoints(points);
+
+        const material = new THREE.LineBasicMaterial({color : 0xffff00});
+        const line = new THREE.Line(geometry, material);
+
+        this._scene.add(line);
+        
     }
 
     // _setupModel(){
